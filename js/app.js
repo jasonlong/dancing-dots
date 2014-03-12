@@ -1,8 +1,16 @@
-var BLOCK_SIZE = 15;
+var BLOCK_SIZE = 12;
 
 var img = new Image();
-var canvas = document.getElementsByClassName('dots-canvas')[0]
+var canvas = document.getElementsByClassName('dots-canvas')[0];
+canvas.style.display = "none";
 var ctx = canvas.getContext('2d');
+
+var circles = [];
+
+var two = new Two({
+  fullscreen: true,
+  autostart: true
+}).appendTo(document.body);
 
 img.onload = function() {
   canvas.width = 800;
@@ -31,16 +39,17 @@ img.onload = function() {
 
       var color = Color().rgb(total_red/data.length*4, total_green/data.length*4, total_blue/data.length*4);
 
-      ctx.clearRect (x, y, BLOCK_SIZE, BLOCK_SIZE);
-
-      ctx.fillStyle = 'black';
-      ctx.beginPath();
-      ctx.arc(x + BLOCK_SIZE/2, y + BLOCK_SIZE/2, BLOCK_SIZE/2 * (1 - color.luminosity()), 0, Math.PI*2, true);
-      ctx.closePath();
-      ctx.fill();
+      var circle = two.makeCircle(x + BLOCK_SIZE/2, y + BLOCK_SIZE/2, BLOCK_SIZE/2 * (color.luminosity()));
+      circle.noStroke().fill = "#ff0dff";
+      circles.push(circle);
     }
   }
 
+  var group = two.makeGroup(circles);
+  // group.translation.set(two.width/2, two.height/2);
+  group.translation.set(two.width/2, two.height/2);
+  two.update();
 
 }
-img.src = 'obama-square.jpg';
+img.src = 'thedaniel.jpg';
+// img.src = 'github-mark.png';
