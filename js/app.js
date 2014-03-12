@@ -46,10 +46,10 @@ img.onload = function() {
   }
 
   var group = two.makeGroup(circles);
-  // group.translation.set(two.width/2, two.height/2);
-  group.translation.set(two.width/2, two.height/2);
+  var bounds = group.getBoundingClientRect(true);
+  group.translation.set(two.width/2 - bounds.right/2, two.height/2 - bounds.bottom/2);
   two.update();
 
 }
-img.src = 'thedaniel.jpg';
-// img.src = 'github-mark.png';
+img.src = 'images/thedaniel.jpg';
+// img.src = 'images/github-mark.png';
