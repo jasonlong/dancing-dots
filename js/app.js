@@ -5,7 +5,7 @@ var canvas = document.getElementsByClassName('dots-canvas')[0];
 canvas.style.display = "none";
 var ctx = canvas.getContext('2d');
 
-var circles = [];
+var pixels = [];
 
 var two = new Two({
   fullscreen: true,
@@ -39,13 +39,13 @@ img.onload = function() {
 
       var color = Color().rgb(total_red/data.length*4, total_green/data.length*4, total_blue/data.length*4);
 
-      var circle = two.makeCircle(x + BLOCK_SIZE/2, y + BLOCK_SIZE/2, BLOCK_SIZE/2 * (color.luminosity()));
-      circle.noStroke().fill = "#ff0dff";
-      circles.push(circle);
+      var pixel = two.makeCircle(x + BLOCK_SIZE/2, y + BLOCK_SIZE/2, BLOCK_SIZE/2 * (color.luminosity()));
+      pixel.noStroke().fill = "#ff0dff";
+      pixels.push(pixel);
     }
   }
 
-  var group = two.makeGroup(circles);
+  var group = two.makeGroup(pixels);
   var bounds = group.getBoundingClientRect(true);
   group.translation.set(two.width/2 - bounds.right/2, two.height/2 - bounds.bottom/2);
   two.update();
